@@ -11,6 +11,17 @@ static_resources:
           "@type": type.googleapis.com/envoy.extensions.filters.network.http_connection_manager.v3.HttpConnectionManager
           codec_type: AUTO
           stat_prefix: ingress_http
+          access_log:
+          - name: envoy.access_loggers.file
+            typed_config:
+              "@type": type.googleapis.com/envoy.extensions.access_loggers.file.v3.FileAccessLog
+              json_format:
+                bytes_rcv: "%BYTES_RECEIVED%"
+                downstream_remote_addr: "%DOWNSTREAM_REMOTE_ADDRESS%"
+                resp_code: "%RESPONSE_CODE%"
+                upstream_host: "%UPSTREAM_HOST%"
+              path: /log/ingress_listener.log 
+              #path: /dev/stdout
           route_config:
             name: local_route
             virtual_hosts:
