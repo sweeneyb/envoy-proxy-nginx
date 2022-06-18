@@ -22,3 +22,10 @@ docker run --rm -it \
       envoyproxy/envoy-dev:93cd7c7835ac4c0be64acdc90d3a55129fdd39e8 \
           -c /front-envoy.yaml
 ```
+
+Or, the equivalent in only nginx:
+```
+docker run --rm -d -v `pwd`/green:/usr/share/nginx/html --name nginx-green -p 8081:80 nginx:mainline-alpine
+docker run --rm -d -v `pwd`/blue:/usr/share/nginx/html --name nginx-blue -p 8082:80 nginx:mainline-alpine
+docker run --rm -d -v `pwd`/nginxproxy:/etc/nginx/conf.d --name nginx-proxy -p 8080:80 nginx:mainline-alpine
+```
